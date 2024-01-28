@@ -10,9 +10,9 @@ Original file is located at
 import pandas as pd
 import plotly.express as px
 import numpy as np
+from utils import atualizando_dados_ipea
 
-
-preco = pd.read_csv("ipea.csv",sep=",")
+preco = pd.read_csv(atualizando_dados_ipea())
 preco.head()
 
 preco["Data"] = pd.to_datetime(preco["Data"])
@@ -32,9 +32,9 @@ fig_1.update_layout(
         family="Courier New, monospace",
         size=12,
         color="RebeccaPurple"))
-fig_1.show()
+# fig_1.show()
 
-producao = pd.read_csv("oil-production-by-country.csv",sep=",")
+producao = pd.read_csv("dados/oil-production-by-country.csv", sep=",", thousands=".")
 producao.head()
 
 producao_regiao = producao.set_index("Entity").loc[["South and Central America (EI)","Africa (EI)","Asia Pacific (EI)",
@@ -58,7 +58,7 @@ fig_2.update_layout(
         family="Courier New, monospace",
         size=12,
         color="RebeccaPurple"))
-fig_2.show()
+# fig_2.show()
 
 """Podemos notar que tivemos um crescimento exponencial de produção apartir do ano de 1990
 As regiões que mais produzem Petróleo são Oriente Médio , America do Norte e a Comunidade dos Estados idependentes (Cis) que é composta por paises da antiga União Soviética.
@@ -83,7 +83,7 @@ fig_3.update_layout(
         family="Courier New, monospace",
         size=12,
         color="RebeccaPurple"))
-fig_3.show()
+# fig_3.show()
 
 """Os preços do petróleo são influenciados por vários fatores, incluindo oferta e demanda.
 Os países membros da Organização dos Países Exportadores de Petróleo (OPEP) produzem cerca de 40% do petróleo bruto mundial.
@@ -94,7 +94,7 @@ A OPEP, especialmente a Arábia Saudita, tem a vantagem na determinação da dir
 Fonte : https://www.investopedia.com/articles/investing/012216/how-opec-and-nonopec-production-affects-oil-prices.asp
 """
 
-consumo = pd.read_csv("oil-consumption-by-country.csv",sep=",")
+consumo = pd.read_csv("dados/oil-consumption-by-country.csv", sep=",", thousands=".")
 consumo.head()
 
 consumo_regiao = consumo.set_index("Entity").loc[["South and Central America (EI)","Africa (EI)","Asia Pacific (EI)",
@@ -114,7 +114,7 @@ fig_4.update_layout(
         family="Courier New, monospace",
         size=12,
         color="RebeccaPurple"))
-fig_4.show()
+# fig_4.show()
 
 """Podemos notar que as regiões que mais consomem Petróleo são a Ásia , América do Norte e Europa
 Asia produziu cerca de 2.4 bilhões de barris em 2022 consumiu 11.4 bilhões em 2022 e a Europa produziu 1 bilhão de barris e consumiu 4.7  a Asia e Europa nescessitam de importações e como vimos os maiores Exportadores são os Paises da OPEP que em sua maioria estão no Oriente Médio que é uma região com muitos conflitos e que possui grande poder na decisão no preço de venda.
