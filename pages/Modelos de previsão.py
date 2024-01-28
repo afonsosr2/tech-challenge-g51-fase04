@@ -7,11 +7,11 @@ from plotly import graph_objs as go
 from utils import atualizando_dados_ipea
 
 ###### Configuração Inicial ######
-dados = pd.read_csv(atualizando_dados_ipea())
+dados = pd.read_csv(atualizando_dados_ipea(), parse_dates=["Data"])
 
 def formata_numero(valor, prefixo = ''):
-    if(isinstance(valor, str)):
-        return datetime.datetime.strptime(valor, '%Y-%m-%d').strftime('%d/%m/%Y')
+    if(isinstance(valor, datetime.datetime)):
+        return valor.strftime('%d/%m/%Y')
     return f'{prefixo} {valor:.2f}'
 
 ###### Modelos ######
@@ -40,17 +40,24 @@ def sarimax_prediction(periodo_previsao):
     forecast_medio = forecast_sarimax.predicted_mean
 
     st.subheader('Previsão')
-    st.dataframe(pd.DataFrame(forecast_medio.round(2).tail()).rename(columns=
-                                                            {"predicted_mean":"Petróleo Brent (U$)"}))
+    forecast = forecast_medio.reset_index()
+    forecast = forecast.rename(columns={"index": "Data",
+                                        "predicted_mean":"Preço - petróleo bruto - Brent (FOB)"})
 
+    st.dataframe(pd.DataFrame(forecast.round(2).tail()))
+    
+    return forecast
 
 ###### Gráficos e Métricas ######
+
+# Gráfico dos dados brutos
 def plot_raw_data():
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=dados['Data'], y=dados['Preço - petróleo bruto - Brent (FOB)'], name="Preço do Petróleo Brent"))
     fig.layout.update(title_text='Preço do Petróleo Brent (FOB)', xaxis_rangeslider_visible=True)
     st.plotly_chart(fig)
-    
+
+# Gráfico da previsão com Prophet    
 def prophet_plot_table(m, forecast, forecast_resumo, periodo_previsao):
     # Mostrando os últimos 5 dias de previsão e plotando o gráfico com a previsão e dados do IPEA
     st.subheader('Previsão')
@@ -59,6 +66,17 @@ def prophet_plot_table(m, forecast, forecast_resumo, periodo_previsao):
     st.subheader(f'Gráfico de previsão em {periodo_previsao} dias')
     plot_prev_prophet = plot_plotly(m, forecast)
     st.plotly_chart(plot_prev_prophet)
+
+# Gráfico da previsão com SARIMAX
+def sarimax_plot_table(forecast, periodo_previsao):
+    fig = go.Figure()
+
+    dados_resumidos = dados.query("Data >= '2020-01-01'")
+
+    fig.add_trace(go.Scatter(x=dados_resumidos["Data"], y=dados_resumidos['Preço - petróleo bruto - Brent (FOB)'], name="Preço do Petróleo Brent"))
+    fig.add_trace(go.Scatter(x=forecast["Data"], y=forecast['Preço - petróleo bruto - Brent (FOB)'], name="Previsão do preço"))
+    fig.layout.update(title_text=f'Gráfico de previsão em {periodo_previsao} dias', xaxis_rangeslider_visible=True)
+    st.plotly_chart(fig)
 
 ###### Página dos Modelos de Previsão ######
     
@@ -99,5 +117,5 @@ if(input_modelo == "Prophet" and rodar_modelo):
         st.write("Em construção")
 if(input_modelo == "SARIMAX" and rodar_modelo):
     st.header("SARIMAX", divider="gray")
-    sarimax_prediction(periodo)
-    
+    forecast = sarimax_prediction(periodo)
+    sarimax_plot_table(forecast, periodo)
