@@ -1,6 +1,8 @@
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
+from prophet import Prophet
+import joblib
 
 def atualizando_dados_ipea():
     # Função para atualizar DataFrame com novas datas
@@ -61,3 +63,25 @@ def atualizando_dados_ipea():
     else:
         print('Falha ao acessar  a página : Status code', response.status_code)
     return path
+
+def retreino_prophet(dados):
+    # Criando um df para o formato aceito do Prophet
+    df = dados.rename(columns={"Data": "ds", "Preço - petróleo bruto - Brent (FOB)": "y"})
+
+    # Separando variáveis de treino e teste e horizonte para validação
+    h_prophet = 300
+    df_train = df[:-h_prophet]
+    df_test = df[-h_prophet:]
+
+    # Treinando ou Retreinando o modelo
+    m = Prophet()
+    m.fit(df_train)
+
+    # Prevendo no horizonte da validação
+    future = m.make_future_dataframe(periods=h_prophet, freq="B")
+    forecast = m.predict(future)
+    validacao = forecast.iloc[-h_prophet:]
+
+    joblib.dump(m, 'modelo/prophet.joblib')
+
+    return df_test, validacao

@@ -8,11 +8,9 @@ st.title(":oil_drum: Análise de preços do Petróleo Brent")
 
 st.header("Dashboard", divider="gray")
 
-st.markdown('''
-        O preço do petróleo pode ser influenciado por vários fatores ao longo do tempo.
+st.markdown('''O preço do petróleo pode ser influenciado por vários fatores ao longo do tempo.
 Para entender o aumento do preço do petróleo desde 1980 até 2024, é necessário considerar 
-alguns fatores-chave:
-        ''')
+alguns fatores-chave:''')
 
 st.subheader('Demanda crescente:')
 
@@ -33,7 +31,7 @@ st.subheader('OPEP:')
 st.markdown(''' A Organização dos Países Exportadores de Petróleo (OPEP) é uma 
 influente organização que agrupa países produtores de petróleo.
 Ela pode adotar políticas que afetam a oferta global de petróleo, 
-como reduzir a produção para aumentar os preços.As decisões 
+como reduzir a produção para aumentar os preços. As decisões 
 da OPEP podem influenciar significativamente o preço do petróleo.''')
 
 st.subheader('Flutuações cambiais:')
@@ -57,15 +55,14 @@ st.plotly_chart(graf_1, use_container_width=True)
 
 st.subheader("Produção de petróleo por Região :")
 st.markdown("""Podemos notar que tivemos um crescimento exponencial de produção 
-apartir do ano de 1990. As regiões que mais produzem Petróleo são Oriente Médio , 
-America do Norte e a Comunidade dos Estados idependentes (Cis) que é composta 
+a partir do ano de 1990. As regiões que mais produzem Petróleo são Oriente Médio, 
+América do Norte e a Comunidade dos Estados Independentes (CIS) que é composta 
 por paises da antiga União Soviética.
 
-A Região (CIS) Comunidade dos Estados Idependentes e o Oriente Médio são regiões 
-de conflitos com alta representatividade em produção , os conflitos impactam nos 
-preços de produção e logistica.
+A Região CIS e o Oriente Médio são regiões de conflitos com alta representatividade 
+em produção e esses conflitos impactam nos preços de produção e logistica.
 
-Fonte : https://www.investopedia.com/articles/investing/012216/how-opec-and-nonopec-production-affects-oil-prices.asp
+Fonte: https://www.investopedia.com/articles/investing/012216/how-opec-and-nonopec-production-affects-oil-prices.asp
 """)
 
 graf_2 = plotar_graf(2)
@@ -75,15 +72,16 @@ st.plotly_chart(graf_2, use_container_width=True)
 st.subheader("Produção de petróleo por OPEP e Não OPEP:")
 
 st.markdown('''Os preços do petróleo são influenciados por vários fatores, incluindo 
-oferta e demanda. 
+oferta e demanda.
+             
 Os países membros da Organização dos Países Exportadores de Petróleo (OPEP) 
-produzem cerca de 40% do petróleo bruto mundial.As exportações de petróleo da OPEP 
-representam aproximadamente 60% do total de petróleo negociado internacionalmente. 
+produzem cerca de **40%** do petróleo bruto mundial. As exportações de petróleo da OPEP 
+representam aproximadamente **60%** do total de petróleo negociado internacionalmente. 
 
 A OPEP, especialmente a Arábia Saudita, tem a vantagem na determinação da direção 
 dos preços do petróleo, mas a Rússia também se tornou um ator-chave.
 
-Fonte : https://www.investopedia.com/articles/investing/012216/how-opec-and-nonopec-production-affects-oil-prices.asp''')
+Fonte: https://www.investopedia.com/articles/investing/012216/how-opec-and-nonopec-production-affects-oil-prices.asp''')
 
 markdown_tabela = '''Country	Oil exports (bbl/day)	Date of information
  Saudi Arabia (OPEC)	7,364,000	2022 est.
@@ -107,16 +105,18 @@ st.plotly_chart(graf_3, use_container_width=True)
 
 st.subheader("Consumo Barril de petróleo por região")
 
-st.markdown('''Podemos notar que as regiões que mais consomem Petróleo 
-são a Ásia , América do Norte e Europa Asia produziu cerca de 2.4 bilhões de barris
-em 2022 consumiu 11.4 bilhões em 2022 e a Europa produziu 1 bilhão de barris e consumiu 4.7 
-a Asia e Europa nescessitam de importações e como vimos os maiores Exportadores são 
-os Paises da OPEP que em sua maioria estão no Oriente Médio que é uma região com muitos
+st.markdown('''Podemos notar que as regiões que mais consomem Petróleo são a Ásia,
+América do Norte e Europa. A Ásia produziu cerca de **2.4 bilhões de barris** em 2022 
+e consumiu **11.4 bilhões** em 2022, já a Europa produziu **1 bilhão de barris** e 
+consumiu **4.7**.
+             
+A Ásia e Europa nescessitam de importações e, como vimos, os maiores **exportadores** são 
+os países da OPEP, que em sua maioria estão no Oriente Médio que é uma região com muitos
 conflitos e que possui grande poder na decisão no preço de venda.
 
-Notamos que o consumo de Petróleo ficou em torno de 33 bilhões de barris em 2022 e a 
-produção total ficou em torno de 30 bilhões a demanda está maior que a oferta puxando 
-os preçoa para cima .''')
+Notamos que o consumo de Petróleo ficou em torno de **33 bilhões de barris** em 2022 e a 
+produção total ficou em torno de **30 bilhões**, ou seja, a demanda está maior que a oferta, puxando 
+os preços para cima.''')
 
 graf_4 = plotar_graf(4)
 
