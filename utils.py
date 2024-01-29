@@ -2,6 +2,8 @@ import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 from prophet import Prophet
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+from statsmodels.tsa.holtwinters import Holt
 import joblib
 
 def atualizando_dados_ipea():
@@ -64,24 +66,35 @@ def atualizando_dados_ipea():
         print('Falha ao acessar  a página : Status code', response.status_code)
     return path
 
+
 def retreino_prophet(dados):
     # Criando um df para o formato aceito do Prophet
     df = dados.rename(columns={"Data": "ds", "Preço - petróleo bruto - Brent (FOB)": "y"})
 
-    # Separando variáveis de treino e teste e horizonte para validação
-    h_prophet = 300
-    df_train = df[:-h_prophet]
-    df_test = df[-h_prophet:]
-
     # Treinando ou Retreinando o modelo
     m = Prophet()
-    m.fit(df_train)
-
-    # Prevendo no horizonte da validação
-    future = m.make_future_dataframe(periods=h_prophet, freq="B")
-    forecast = m.predict(future)
-    validacao = forecast.iloc[-h_prophet:]
+    m.fit(df)
 
     joblib.dump(m, 'modelo/prophet.joblib')
 
-    return df_test, validacao
+
+def retreino_sarimax(dados):
+    # Criando um df para o formato aceito do Prophet
+    dados_resample = dados.set_index("Data").resample('1D').ffill()
+
+    # Treinando ou Retreinando o modelo
+    model_sarimax = SARIMAX(dados_resample, order=(3,1,1), seasonal_order=(2,1,0,7))
+    model_sarimax.fit()
+
+    joblib.dump(model_sarimax, 'modelo/sarimax.joblib', compress=3)
+
+
+def retreino_holt(dados):
+    # Criando um df para o formato aceito do Prophet
+    dados_resample = dados.set_index("Data").resample('1D').ffill()
+
+    # Treinando ou Retreinando o modelo
+    model_holt = Holt(dados_resample)
+    model_holt.fit()
+
+    joblib.dump(model_holt, 'modelo/holt.joblib')

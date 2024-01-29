@@ -24,3 +24,45 @@ Tunando Prophet (Testando alguns parametros depois de criar o 2º modelo)
 https://www.kaggle.com/code/drscarlat/predict-the-weather-with-fb-prophet/notebook?scriptVersionId=53292209
 Prophet(daily_seasonality=False, changepoint_range=1,changepoint_prior_scale=0.75)
 https://webcache.googleusercontent.com/search?q=cache:https://medium.com/grabngoinfo/hyperparameter-tuning-and-regularization-for-time-series-model-using-prophet-in-python-9791370a07dc&sca_esv=601710346&strip=1&vwsrc=0
+
+
+    # Performance da técnica
+    mae_prophet = mean_absolute_error(df_test['y'], validacao['yhat'])
+    mse_prophet = mean_squared_error(df_test['y'], validacao['yhat'])
+    rmse_prophet = math.sqrt(mse_prophet)
+    mape_prophet = mean_absolute_percentage_error(df_test['y'], validacao['yhat'])  
+    wmape_prophet = wmape(df_test['y'], validacao['yhat'])
+    df_result = {"MAE": round(mae_prophet, 5),
+                 "MSE": round(mse_prophet, 5),
+                 "RMSE": round(rmse_prophet, 5),
+                 "MAPE": f"{mape_prophet:.2%}",
+                 "WMAPE": f"{wmape_prophet:.2%}"}
+    index = ["Prophet"]
+    resultados = pd.DataFrame(df_result, index=index)
+
+    st.dataframe(resultados)
+
+
+    
+
+    def retreino_prophet(dados):
+    # Criando um df para o formato aceito do Prophet
+    df = dados.rename(columns={"Data": "ds", "Preço - petróleo bruto - Brent (FOB)": "y"})
+
+    # Separando variáveis de treino e teste e horizonte para validação
+    h_prophet = 30
+    df_train = df.copy()
+    df_test = df[-h_prophet:]
+
+    # Treinando ou Retreinando o modelo
+    m = Prophet()
+    m.fit(df_train)
+
+    # Prevendo no horizonte da validação
+    future = m.make_future_dataframe(periods=-h_prophet, freq="B")
+    forecast = m.predict(future)
+    validacao = forecast.iloc[-h_prophet:]
+
+    joblib.dump(m, 'modelo/prophet.joblib')
+
+    return df_test, validacao
