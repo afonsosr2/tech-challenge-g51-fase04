@@ -29,4 +29,32 @@ st.header("Fluxograma do MVP", divider="gray")
 st.image("Fluxo do dados.drawio.png", caption = 'Fluxograma dos dados do MVP')
 
 st.header('Referências', divider = "gray")
-st.write("Em construção!")
+
+st.markdown('''
+            - PANDAS. Documentação da biblioteca Pandas [Internet]. [acessado 2023 Jan].  
+             Disponível em: https://pandas.pydata.org/docs/reference/
+            - STREAMLIT. Documentação da biblioteca Streamlit [Internet]. [acessado 2023 Jan].  
+            Disponível em: https://docs.streamlit.io/
+            - PROPHET. Documentação da biblioteca Prophet [Internet]. [acessado 2023 Jan].  
+            Disponível em: https://facebook.github.io/prophet/docs/quick_start.html
+            - STATSMODELS. Documentação da biblioteca Statsmodels [Internet]. [acessado 2023 Jan].  
+            Disponível em: https://www.statsmodels.org/stable/index.html
+            - JOBLIB. Documentação da biblioteca Joblib [Internet]. [acessado 2023 Jan].  
+            Disponível em: https://joblib.readthedocs.io/en/stable/
+            - PLOTLY. Documentação da biblioteca Plotly [Internet]. [acessado 2023 Jan].  
+            Disponível em: https://plotly.com/python/
+            - JOEL, Grus. Data Science do Zero: Noções Fundamentais com Python [Livro físico]
+            - KNAFLIC, Cole Nussbaumer. Storytelling com dados: uma guia sobre visualização de dados para profissionais de negócio [Livro físico]
+            - IPEA, Preço por barril do petróleo bruto Brent (FOB)[Internet]. [acessado 2023 Jan].  
+            Disponível em: http://www.ipeadata.gov.br/ExibeSerie.aspx?module=m&serid=1650971490&oper=view
+            - OUR WORLD IN DATA. Oil production (em inglês) [Internet]. [acessado 2023 Jan].  
+            Disponível em: https://ourworldindata.org/grapher/oil-production-by-region
+            - OUR WORLD IN DATA. Oil consumption (em inglês)[Internet]. [acessado 2023 Jan].  
+            Disponível em: https://ourworldindata.org/grapher/oil-consumption-by-region-terawatt-hours-twh
+            - CITIZENMATHS. Terawatt-hora para Barril de óleo equivalente conversões [Internet]. [acessado 2023 Jan].  
+            Disponível em: https://citizenmaths.com/pt/energy-work-heat/terawatt-hours-to-barrels-of-oil-equivalent
+            - INVESTOPEDIA. How OPEC (and Non-OPEC) Production Affects Oil Prices (em inglês) [Internet]. [acessado 2023 Jan].  
+            Disponível em: https://www.investopedia.com/articles/investing/012216/how-opec-and-nonopec-production-affects-oil-prices.asp
+            - WIKIPEDIA. List of countries by oil exports (em inglês) [Internet]. [acessado 2023 Jan].  
+            Disponível em: https://en.wikipedia.org/wiki/List_of_countries_by_oil_exports           
+            ''')
