@@ -156,7 +156,7 @@ def holt_metrics():
                  "RMSE":7.91194,
                  "MAPE": "1.94%",
                  "WMAPE": "57.25%"}
-    index = ["Holt-Winters"]
+    index = ["Holt"]
     resultados = pd.DataFrame(df_result, index=index)
 
     st.subheader('Métricas do modelo treinado para os dados até 22/01/2024')

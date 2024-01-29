@@ -79,7 +79,7 @@ def retreino_prophet(dados):
 
 
 def retreino_sarimax(dados):
-    # Criando um df para o formato aceito do Prophet
+    # Criando um df para o formato aceito do SARIMAX
     dados_resample = dados.set_index("Data").resample('1D').ffill()
 
     # Treinando ou Retreinando o modelo
@@ -90,7 +90,7 @@ def retreino_sarimax(dados):
 
 
 def retreino_holt(dados):
-    # Criando um df para o formato aceito do Prophet
+    # Criando um df para o formato aceito do Holt
     dados_resample = dados.set_index("Data").resample('1D').ffill()
 
     # Treinando ou Retreinando o modelo
