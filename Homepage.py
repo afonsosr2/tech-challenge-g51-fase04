@@ -26,7 +26,7 @@ st.markdown('''<style>
 unsafe_allow_html=True)
 
 st.header("Fluxograma do MVP", divider="gray")
-st.write("Em construção!")
+st.image("Fluxo do dados.drawio.png", caption = 'Fluxograma dos dados do MVP')
 
 st.header('Referências', divider = "gray")
 st.write("Em construção!")
